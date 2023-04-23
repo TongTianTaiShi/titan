@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  titan-edge:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: titan-edge
+    command: ["${EDGE_NODE_ID}", "${EDGE_AREA_ID}", "${LOCATOR_API_INFO}"]
+    ports:
+      - "${TITAN_EDGE_PORT:-1234}:1234"
+    volumes:
+      - /Users/nezha/.titanedge:/root/.titanedge
+  titan-candidate:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: titan-candidate
+    command: ["${CANDIDATE_NODE_ID}", "${CANDIDATE_AREA_ID}", "${LOCATOR_API_INFO}"]
+    ports:
+      - "${TITAN_CANDIDATE_PORT:-2345}:2345"
+    volumes:
+      - /Users/nezha/.titancandidate:/root/.titancandidate
